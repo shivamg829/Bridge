@@ -5,7 +5,6 @@ const authMiddleware = require('../middleware/auth.middleware');
 router.get('/get-logged-user', authMiddleware, async (req, res) => {
     try {
         const userId = req.user?._id || req.body.userId;
-        
         if (!userId) {
             return res.status(401).json({
                 message: 'User not authenticated',
