@@ -32,7 +32,7 @@ function SignUp() {
                 <div className="card_terms">
                     <span>
                         Already have an account?
-                        <a>Login Here</a>
+                        <a>LogIn Here</a>
                     </span>
                 </div>
             </div>
