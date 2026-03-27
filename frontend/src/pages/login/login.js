@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import {Link} from 'react-router-dom';
 function LogIn() {
     const [user, setUser] = useState({
         email: '',
@@ -39,7 +39,7 @@ function LogIn() {
                 <div className="card_terms">
                     <span>
                         Don't have an account yet?
-                        <a>SignUp Here</a>
+                        <Link to="/signup">SignUp Here</Link>
                     </span>
                 </div>
             </div>
