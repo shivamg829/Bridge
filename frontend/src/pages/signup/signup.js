@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom';
+import {signupuser} from "../../api/auth";
 function SignUp() {
     const [user, setUser] = React.useState({
         firstName: '',
@@ -7,9 +8,18 @@ function SignUp() {
         email: '',
         password: ''
     });
-    function onFormSubmit(e){
+    async function onFormSubmit(e){
         e.preventDefault();
-        console.log(user);
+        try {
+            const response = await signupuser(user);
+            if(response.success){
+                alert(response.message);
+            }else{
+                alert(response.message);
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     }
     return (
         <div className="container">
@@ -22,7 +32,7 @@ function SignUp() {
                 <div className="form">
                     <form onSubmit={onFormSubmit}>
                         <div className="column">
-                            <input type="text" placeholder="First Name" value={user.firstname} onChange={(e)=>setUser({...user, firstName: e.target.value})}/>
+                            <input type="text" placeholder="First Name" value={user.firstName} onChange={(e)=>setUser({...user, firstName: e.target.value})}/>
                             <input type="text" placeholder="Last Name"  value={user.lastName} onChange={(e)=>setUser({...user, lastName: e.target.value})}/>
                         </div>
                         <input type="email" placeholder="Email" value={user.email} onChange={(e)=>setUser({...user, email: e.target.value})}/>

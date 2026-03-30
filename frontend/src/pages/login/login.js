@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { loginuser } from '../../api/auth';
+
 function LogIn() {
     const [user, setUser] = useState({
         email: '',
         password: ''
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Login attempt:', user);
+        try {
+            const response = await loginuser(user);
+            if (response.success) {
+                alert(response.message);
+                // Typically store token, redirect - but no add
+            } else {
+                alert(response.message);
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (
@@ -39,7 +51,7 @@ function LogIn() {
                 <div className="card_terms">
                     <span>
                         Don't have an account yet?
-                        <Link to="/signup">SignUp Here</Link>
+                        <Link to="/signup">Sign Up Here</Link>
                     </span>
                 </div>
             </div>
