@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loginuser } from '../../api/auth';
+import { toast } from "react-hot-toast";
 
 function LogIn() {
     const [user, setUser] = useState({
@@ -10,16 +11,18 @@ function LogIn() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const response = null;
         try {
-            const response = await loginuser(user);
+            response = await loginuser(user);
             if (response.success) {
-                alert(response.message);
-                // Typically store token, redirect - but no add
+                toast.success(response.message);
+                localStorage.setItem('token', response.token);
+                window.location.href = '/';
             } else {
-                alert(response.message);
+                toast.error(response.message);
             }
         } catch (error) {
-            alert(error.message);
+            toast.error(response.message);
         }
     };
 
