@@ -7,11 +7,11 @@ function ProtectedRoute({children}){ {
         if (token) {
             
         }else{
-            navigate('/login');
+            Navigate('/login');
         }
     });
     <div>
         {children}
     </div>
-}
+}}
 export default ProtectedRoute;
