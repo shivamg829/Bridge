@@ -8,7 +8,7 @@ import ProtectedRoute from "./components/protectedRoutes";
 import { useSelector } from "react-redux";
 
 function App() {
-  const loader = useSelector((state) => state.loaderReducer);
+  const {loader} = useSelector((state) => state.loaderReducer);
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />

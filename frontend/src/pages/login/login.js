@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loginuser } from '../../api/auth';
 import { toast } from "react-hot-toast";
-
+import { useDispatch } from 'react-redux';
+import { showLoader, hideLoader } from '../../redux/loaderSlice';
 function LogIn() {
+    const dispatch = useDispatch();
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -11,9 +13,11 @@ function LogIn() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = null;
+        let response = null;
         try {
+            dispatch(showLoader());
             response = await loginuser(user);
+            dispatch(hideLoader());
             if (response.success) {
                 toast.success(response.message);
                 localStorage.setItem('token', response.token);
@@ -22,6 +26,7 @@ function LogIn() {
                 toast.error(response.message);
             }
         } catch (error) {
+            dispatch(hideLoader());
             toast.error(response.message);
         }
     };

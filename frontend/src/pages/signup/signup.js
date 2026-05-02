@@ -2,7 +2,10 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import {signupuser} from "../../api/auth";
 import { toast } from "react-hot-toast";
+import { useDispatch } from 'react-redux';
+import { showLoader, hideLoader } from '../../redux/loaderSlice';
 function SignUp() {
+    const dispatch = useDispatch();
     const [user, setUser] = React.useState({
         firstName: '',
         lastName: '',
@@ -11,15 +14,18 @@ function SignUp() {
     });
     async function onFormSubmit(e){
         e.preventDefault();
-        const response = null;
+        let response = null;
         try {
+            dispatch(showLoader());
             response = await signupuser(user);
+            dispatch(hideLoader());
             if(response.success){
                 toast.success("Account created successfully! Please log in.");
             }else{
                 toast.error(response.message);
             }
         } catch (error) {
+            dispatch(hideLoader());
             toast.error(response.message);
         }
     }
